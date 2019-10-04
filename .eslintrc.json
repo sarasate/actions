@@ -1,0 +1,18 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true,
+    "meteor": true,
+    "node": true
+  },
+  "extends": [
+    "@meteorjs/eslint-config-meteor",
+    "prettier",
+    "plugin:vue/recommended"
+  ],
+  "plugins": ["prettier"],
+  "rules": {
+    "prettier/prettier": "error",
+    "import/prefer-default-export": "off"
+  }
+}

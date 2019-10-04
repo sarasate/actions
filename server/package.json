@@ -1,0 +1,26 @@
+{
+  "name": "actions",
+  "descripton": "Intelligent task manager",
+  "scripts": {
+    "start": "meteor run",
+    "test": "meteor test --once --driver-package meteortesting:mocha",
+    "test-app": "TEST_WATCH=1 meteor test --full-app --driver-package meteortesting:mocha",
+    "visualize": "meteor --production --extra-packages bundle-visualizer"
+  },
+  "dependencies": {
+    "@babel/plugin-proposal-optional-chaining": "^7.6.0",
+    "@babel/runtime": "^7.4.2",
+    "apollo-server": "^2.4.8",
+    "apollo-server-express": "^2.4.8",
+    "bcrypt": "^3.0.6",
+    "graphql": "^14.2.0",
+    "meteor-node-stubs": "^0.4.1"
+  },
+  "meteor": {
+    "mainModule": {
+      "client": "client/main.js",
+      "server": "server/main.js"
+    },
+    "testModule": "tests/main.js"
+  }
+}
