@@ -13,8 +13,11 @@ const types = gql`
   }
 
   type Action {
-    _id: ID!
+    id: ID!
     title: String!
+    archived: Boolean
+    createdAt: DateTime!
+    user: User!
   }
 
   input UserInput {
@@ -39,6 +42,8 @@ const types = gql`
 
   type Mutation {
     addAction(action: ActionInput!): Action
+    archiveAction(actionId: ID!): Boolean
+    deleteAction(actionId: ID!): Boolean
     createUser(user: UserInput!): User
     login(email: String!, password: String!): AuthPayload
   }

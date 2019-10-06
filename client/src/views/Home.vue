@@ -14,7 +14,7 @@ export default {
     actions: gql`
       {
         actions {
-          _id
+          id
           title
         }
       }
