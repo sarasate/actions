@@ -4,6 +4,7 @@ import router from './router';
 import store from './store';
 import './registerServiceWorker';
 import { createProvider } from './vue-apollo';
+import '@/assets/css/tailwind.css';
 
 Vue.config.productionTip = false;
 

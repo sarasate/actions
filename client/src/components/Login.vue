@@ -12,7 +12,10 @@
             <input v-model="form.password" type="password" placeholder="Password" />
           </div>
           <div>
-            <button @click.once="login">Log in</button>
+            <button
+              @click.once="login"
+              class="rounded bg-blue-500 text-white py-1 px-4 hover:text-gray-300 hover:bg-blue-600"
+            >Log in</button>
           </div>
         </div>
         <div>
