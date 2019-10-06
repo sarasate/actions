@@ -8,7 +8,7 @@ const types = gql`
   }
 
   type AuthPayload {
-    _id: ID!
+    id: ID!
     token: String!
   }
 
@@ -40,7 +40,7 @@ const types = gql`
   type Mutation {
     addAction(action: ActionInput!): Action
     createUser(user: UserInput!): User
-    login(login: LoginInput!): AuthPayload
+    login(email: String!, password: String!): AuthPayload
   }
 
   scalar DateTime

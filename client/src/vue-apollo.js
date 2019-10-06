@@ -9,7 +9,7 @@ import {
 Vue.use(VueApollo);
 
 // Name of the localStorage item
-const AUTH_TOKEN = 'apollo-token';
+const AUTH_TOKEN = 'user-token';
 
 // Http endpoint
 const httpEndpoint =
@@ -21,9 +21,9 @@ const defaultOptions = {
   httpEndpoint,
   // You can use `wss` for secure connection (recommended in production)
   // Use `null` to disable subscriptions
-  wsEndpoint: process.env.VUE_APP_GRAPHQL_WS || 'ws://localhost:3000/graphql',
+  // wsEndpoint: process.env.VUE_APP_GRAPHQL_WS || 'ws://localhost:3000/graphql',
   // LocalStorage token
-  tokenName: AUTH_TOKEN,
+  // tokenName: AUTH_TOKEN,
   // Enable Automatic Query persisting with Apollo Engine
   persisting: false,
   // Use websockets for everything (no HTTP)
@@ -41,7 +41,10 @@ const defaultOptions = {
   // cache: myCache
 
   // Override the way the Authorization header is set
-  // getAuth: (tokenName) => ...
+  getAuth: () => {
+    const token = localStorage.getItem(AUTH_TOKEN);
+    return token || '';
+  },
 
   // Additional ApolloClient options
   // apollo: { ... }
