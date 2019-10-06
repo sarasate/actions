@@ -4,13 +4,23 @@ import { getUser } from 'meteor/apollo';
 
 import typeDefs from './schema';
 import resolvers from './resolvers';
+import { generateUserModel } from '../imports/model/user.model';
+import { generateActionModel } from '../imports/model/action.model';
 
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: async ({ req }) => ({
-    user: await getUser(req.headers.authorization),
-  }),
+  context: async ({ req }) => {
+    const user = await getUser(req.headers.authorization);
+
+    return {
+      user,
+      models: {
+        User: generateUserModel({ user }),
+        Action: generateActionModel({ user }),
+      },
+    };
+  },
 });
 
 server.applyMiddleware({

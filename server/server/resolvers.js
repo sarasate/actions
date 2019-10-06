@@ -1,28 +1,19 @@
 import { Actions } from '/imports/collections/actions.collection';
-import { isAuthenticated } from '/imports/auth/auth';
+import { authenticated } from '/imports/auth/auth';
 
 const resolvers = {
   Query: {
-    actions: (_, __, { user }) => {
-      isAuthenticated(user);
-      return Actions.find().fetch();
-    },
+    actions: authenticated((_, __, { user, models }) => {
+      return models.Action.getAll();
+    }),
   },
   Mutation: {
-    addAction: (root, { action }, { user }) => {
-      isAuthenticated(user);
-      const actionId = Actions.insert(action);
-
-      return Actions.findOne({ _id: actionId });
-    },
-    createUser: (root, { user }) => {
-      const userId = Accounts.createUser(user);
-      delete user.password;
-      delete user.email;
-      Meteor.users.update({ _id: userId }, { $set: user });
-      return Meteor.users.findOne({ _id: userId });
-    },
-
+    addAction: authenticated((root, { action }, { user, models }) => {
+      return models.Action.addAction(action);
+    }),
+    createUser: authenticated((root, { user }, { models }) => {
+      return models.User.createUser(user);
+    }),
     login: (root, { email, password }) => {
       const user = Accounts.findUserByEmail(email);
       const authenticated = Accounts._checkPassword(user, password);

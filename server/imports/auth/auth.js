@@ -1,4 +1,4 @@
-export const isAuthenticated = user => {
-  if (!user) throw new Error('Authentication failed!');
-  return user;
+export const authenticated = next => (root, args, context, info) => {
+  if (!context.user) throw new Error('Unauthenticated!');
+  return next;
 };
