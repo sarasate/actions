@@ -17,13 +17,13 @@ const resolvers = {
     deleteAction: authenticated((_, { actionId }, { models }) => {
       return models.Action.deleteAction(actionId);
     }),
-    createUser: authenticated((_, { user }, { models }) => {
+    createUser: (_, { user }, { models }) => {
       return models.User.createUser(user);
-    }),
+    },
     login: (root, { email, password }) => {
       const user = Accounts.findUserByEmail(email);
-      const authenticated = Accounts._checkPassword(user, password);
-      if (authenticated.error)
+      const isAuthenticated = Accounts._checkPassword(user, password);
+      if (isAuthenticated.error)
         throw new Error('Authentication failed!', authenticated.error);
       const stampedLogintoken = Accounts._generateStampedLoginToken();
       Accounts._insertLoginToken(user._id, stampedLogintoken);
@@ -31,7 +31,7 @@ const resolvers = {
     },
   },
   Action: {
-    id: root => root._id,
+    id: root => root && root._id,
     user: root => {
       return Meteor.users.findOne({ _id: root.userId });
     },
