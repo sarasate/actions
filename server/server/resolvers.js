@@ -1,18 +1,17 @@
-import { Actions } from '/imports/collections/actions.collection';
 import { authenticated } from '/imports/auth/auth';
 
 const resolvers = {
   Query: {
-    actions: authenticated((_, __, { models }) => {
-      return models.Action.getAll();
+    actions: authenticated((_, { completed = false }, { models }) => {
+      return models.Action.getAll(completed);
     }),
   },
   Mutation: {
     addAction: authenticated((root, { action }, { models }) => {
       return models.Action.addAction(action);
     }),
-    archiveAction: authenticated((_, { actionId }, { models }) => {
-      return models.Action.archiveAction(actionId);
+    completeAction: authenticated((_, { actionId }, { models }) => {
+      return models.Action.completeAction(actionId);
     }),
     deleteAction: authenticated((_, { actionId }, { models }) => {
       return models.Action.deleteAction(actionId);

@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './views/Home.vue';
+import Archive from './views/Archive';
 import Login from './components/Login';
 import { TokenService } from './services/storage.service';
 
@@ -15,6 +16,7 @@ const router = new Router({
       name: 'home',
       component: Home,
     },
+    { path: '/archive', name: 'archive', component: Archive },
     {
       path: '/login',
       name: 'login',

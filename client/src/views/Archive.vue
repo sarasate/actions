@@ -1,6 +1,6 @@
 <template>
-  <div class="home">
-    <h1 class="h1 c">Actions</h1>
+  <div class="archive">
+    <h1>Archive</h1>
     <ActionList :actions="actions" />
   </div>
 </template>
@@ -15,10 +15,11 @@ export default {
   apollo: {
     actions: gql`
       {
-        actions {
+        actions(completed: true) {
           id
           title
           createdAt
+          completed
         }
       }
     `,

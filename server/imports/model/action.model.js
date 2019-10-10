@@ -1,8 +1,11 @@
 import { Actions } from '/imports/collections/actions.collection';
 
 export const generateActionModel = ({ user }) => ({
-  getAll: () => {
-    return Actions.find({ userId: user._id, archived: { $ne: true } }).fetch();
+  getAll: (completed = false) => {
+    return Actions.find({
+      userId: user._id,
+      completed: { $ne: !completed },
+    }).fetch();
   },
   getById: id => {
     return Actions.findOne(id);
@@ -16,14 +19,14 @@ export const generateActionModel = ({ user }) => ({
 
     return Actions.findOne({ _id: actionId });
   },
-  archiveAction: actionId => {
+  completeAction: actionId => {
     return Actions.update(
       { _id: actionId, userId: user._id },
-      { $set: { archived: true } }
+      { $set: { completed: true } }
     );
   },
   deleteAction: actionId => {
-    return Actions.delete({
+    return Actions.remove({
       _id: actionId,
       userId: user._id,
     });
