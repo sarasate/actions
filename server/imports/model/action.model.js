@@ -2,9 +2,12 @@ import { Actions } from '/imports/collections/actions.collection';
 
 export const generateActionModel = ({ user }) => ({
   getAll: (completed = false) => {
+    const query = completed
+      ? { completed: true }
+      : { $or: [{ completed: null }, { completed: false }] };
     return Actions.find({
       userId: user._id,
-      completed: { $ne: !completed },
+      ...query,
     }).fetch();
   },
   getById: id => {
@@ -26,7 +29,7 @@ export const generateActionModel = ({ user }) => ({
     );
   },
   deleteAction: actionId => {
-    return Actions.remove({
+    Actions.remove({
       _id: actionId,
       userId: user._id,
     });

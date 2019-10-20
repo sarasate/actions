@@ -1,0 +1,7 @@
+mutation($title: String!) {
+  addAction(action: { title: $title }) {
+    id
+    title
+    createdAt
+  }
+}

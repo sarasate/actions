@@ -1,6 +1,8 @@
 <template>
   <div class="home">
-    <h1 class="h1 c">Actions</h1>
+    <h1 class="h1">Actions</h1>
+    <ActionInput />
+
     <ActionList :actions="actions" />
   </div>
 </template>
@@ -8,20 +10,14 @@
 <script>
 import gql from 'graphql-tag';
 import ActionList from '../components/ActionList';
+import ActionInput from '../components/ActionInput';
+import ACTIONS_ALL from '../graphql/actions-all.gql';
 
 export default {
   name: 'home',
-  components: { ActionList },
+  components: { ActionList, ActionInput },
   apollo: {
-    actions: gql`
-      {
-        actions {
-          id
-          title
-          createdAt
-        }
-      }
-    `,
+    actions: { query: ACTIONS_ALL },
   },
 };
 </script>

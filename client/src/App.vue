@@ -5,7 +5,9 @@
       <router-link to="/archive">Archive</router-link> |
       <router-link to="/login">Login</router-link>
     </div>
-    <router-view />
+    <div class="container mx-auto px-4">
+      <router-view />
+    </div>
   </div>
 </template>
 

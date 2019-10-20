@@ -3,7 +3,7 @@
   "descripton": "Intelligent task manager",
   "scripts": {
     "start": "meteor run",
-    "debug": "meteor run --inspect --port 4000",
+    "debug": "meteor run --inspect --port 5000",
     "test": "meteor test --once --driver-package meteortesting:mocha",
     "test-app": "TEST_WATCH=1 meteor test --full-app --driver-package meteortesting:mocha",
     "visualize": "meteor --production --extra-packages bundle-visualizer"
