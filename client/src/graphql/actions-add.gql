@@ -3,5 +3,6 @@ mutation($title: String!) {
     id
     title
     createdAt
+    tags
   }
 }

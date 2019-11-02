@@ -4,6 +4,9 @@
   "description": "Intelligent task manager",
   "author": "sarasate",
   "license": "BSD-3-Clause",
+  "scripts": {
+    "dev": "lerna run dev --parallel"
+  },
   "devDependencies": {
     "@meteorjs/eslint-config-meteor": "^1.0.5",
     "babel-eslint": "^10.0.3",
@@ -17,6 +20,7 @@
     "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-react": "^7.14.3",
     "eslint-plugin-vue": "^5.2.3",
+    "lerna": "^3.18.3",
     "prettier": "^1.18.2"
   }
 }

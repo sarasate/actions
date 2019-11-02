@@ -1,4 +1,5 @@
 import { Actions } from '/imports/collections/actions.collection';
+import processAction from '../services/process_action.service';
 
 export const generateActionModel = ({ user }) => ({
   getAll: (completed = false) => {
@@ -14,8 +15,9 @@ export const generateActionModel = ({ user }) => ({
     return Actions.findOne(id);
   },
   addAction: action => {
+    const processedAction = processAction(user._id, action);
     const actionId = Actions.insert({
-      ...action,
+      ...processedAction,
       userId: user._id,
       createdAt: new Date(),
     });

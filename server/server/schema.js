@@ -18,6 +18,7 @@ const types = gql`
     completed: Boolean
     createdAt: DateTime!
     user: User!
+    tags: [String!]
   }
 
   input UserInput {

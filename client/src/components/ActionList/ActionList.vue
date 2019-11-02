@@ -7,6 +7,7 @@
       <div class="flex items-center justify-between p-2 mb-2 shadow">
         <div class="w-1/3 ">
           {{ action.title }}
+          <span :key="tag" v-for="tag in action.tags" class='bg-gray-200 rounded px-2'>{{tag}}</span>
         </div>
         <div class=" flex justify-between">
           <div
@@ -25,6 +26,7 @@
 
 <script>
 import gql from 'graphql-tag';
+import ACTIONS_ALL from '../../graphql/actions-all.gql';
 export default {
   props: {
     actions: [Array],
@@ -41,18 +43,7 @@ export default {
           variables: { actionId },
           // update:(store, {data:})
           refetchQueries: [
-            {
-              query: gql`
-                {
-                  actions {
-                    id
-                    title
-                    createdAt
-                  }
-                }
-              `,
-              variables: { repoName: 'apollographql/apollo-client' },
-            },
+            { query: ACTIONS_ALL }
           ],
         })
         .then(data => {
@@ -76,16 +67,7 @@ export default {
         variables: { actionId },
         refetchQueries: [
           {
-            query: gql`
-              {
-                actions {
-                  id
-                  title
-                  createdAt
-                }
-              }
-            `,
-            variables: { repoName: 'apollographql/apollo-client' },
+             query: ACTIONS_ALL 
           },
         ],
       });
