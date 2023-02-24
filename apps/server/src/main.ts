@@ -10,6 +10,7 @@ async function bootstrap() {
     .setTitle('Actions')
     .setDescription('Actions API description')
     .setVersion('1.0')
+    .addTag('auth')
     .addTag('users')
     .addTag('actions')
     .addServer('http://localhost:8080')
