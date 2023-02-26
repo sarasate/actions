@@ -1,26 +1,37 @@
+import { InjectRepository } from '@mikro-orm/nestjs';
 import { Injectable } from '@nestjs/common';
+import { ActionRepository } from './action.repository';
 import { CreateActionDto } from './dto/create-action.dto';
 import { UpdateActionDto } from './dto/update-action.dto';
+import { Action } from './entities/action.entity';
 
 @Injectable()
 export class ActionsService {
+  constructor(
+    @InjectRepository(Action)
+    private actionRepository: ActionRepository,
+  ) {}
+
   create(createActionDto: CreateActionDto) {
-    return 'This action adds a new action';
+    const action = this.actionRepository.create(createActionDto);
+    return this.actionRepository.persistAndFlush(action);
   }
 
   findAll() {
-    return `This action returns all actions`;
+    return this.actionRepository.findAll();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} action`;
+  findOne(id: string) {
+    return this.actionRepository.findOne(id);
   }
 
-  update(id: number, updateActionDto: UpdateActionDto) {
+  // TODO implement
+  update(id: string, updateActionDto: UpdateActionDto) {
     return `This action updates a #${id} action`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} action`;
+  remove(id: string) {
+    const action = this.actionRepository.findOne(id);
+    return this.actionRepository.removeAndFlush(action);
   }
 }
