@@ -17,10 +17,12 @@ export class AuthService {
     return this.validatePassword(user, pass) ? user : null;
   }
 
-  async login(user: any) {
-    const payload = { email: user.email, sub: user.userId };
+  async login(userPayload: any) {
+    const payload = { email: userPayload.email, sub: userPayload.userId };
+    const user = await this.usersService.findOneByEmail(userPayload.email);
     return {
-      access_token: this.jwtService.sign(payload),
+      user,
+      accessToken: this.jwtService.sign(payload),
     };
   }
 

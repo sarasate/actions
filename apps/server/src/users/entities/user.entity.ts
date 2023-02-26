@@ -14,4 +14,6 @@ export class User extends BaseEntity {
 
   @Property()
   lastName: string;
+
+  // TODO add refresh token property
 }
