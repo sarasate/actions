@@ -4,8 +4,12 @@ import { RouterLink, RouterView } from "vue-router";
 
 <template>
   <header>
-    <div class="container m-auto">
-      <nav class="navbar"></nav>
+    <div class="">
+      <nav class="navbar bg-base-100">
+        <div class="container mx-auto">
+          <a class="btn btn-ghost normal-case text-xl">Actions</a>
+        </div>
+      </nav>
     </div>
   </header>
 
