@@ -32,7 +32,6 @@ const handleSubmit = () => {
 
   const formData = { email: email.value, password: password.value };
 
-  console.log(route.query.returnUrl);
   return authStore.login(formData).then(() => {
     router.push(route.query.returnUrl || "/");
   });

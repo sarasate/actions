@@ -6,24 +6,28 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { CurrentUser } from '../auth/current-user.decorator';
+import { JwtAuthGuard } from '../auth/guards/jwt.guard';
 import { ActionsService } from './actions.service';
 import { CreateActionDto } from './dto/create-action.dto';
 import { UpdateActionDto } from './dto/update-action.dto';
 
 @Controller('actions')
+@UseGuards(JwtAuthGuard)
 @ApiTags('actions')
 export class ActionsController {
   constructor(private readonly actionsService: ActionsService) {}
 
   @Post()
-  create(@Body() createActionDto: CreateActionDto) {
-    return this.actionsService.create(createActionDto);
+  create(@CurrentUser() user, @Body() createActionDto: CreateActionDto) {
+    return this.actionsService.create({ ...createActionDto });
   }
 
   @Get()
-  findAll() {
+  findAll(@CurrentUser() user) {
     return this.actionsService.findAll();
   }
 
