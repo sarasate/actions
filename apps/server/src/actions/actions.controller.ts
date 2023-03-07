@@ -16,7 +16,7 @@ import { CreateActionDto } from './dto/create-action.dto';
 import { UpdateActionDto } from './dto/update-action.dto';
 
 @Controller('actions')
-@UseGuards(JwtAuthGuard)
+// @UseGuards(JwtAuthGuard)
 @ApiTags('actions')
 export class ActionsController {
   constructor(private readonly actionsService: ActionsService) {}

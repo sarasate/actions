@@ -1,7 +1,20 @@
 <script setup lang="ts">
-import TheWelcome from "../components/TheWelcome.vue";
+import { fetchWrapper } from "../helper/fetch";
+import { ref } from "vue";
+
+const actions = ref([]);
+
+fetchWrapper.get("http://localhost:8080/actions").then((res) => {
+  actions.value = res;
+});
 </script>
 
 <template>
-  <main></main>
+  <ul v-if="actions">
+    <li v-for="action in actions">
+      {{ action.name }}
+    </li>
+  </ul>
 </template>
+
+,
