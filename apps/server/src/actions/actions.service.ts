@@ -31,8 +31,8 @@ export class ActionsService {
     return `This action updates a #${id} action`;
   }
 
-  remove(id: string) {
-    const action = this.actionRepository.findOne(id);
+  async remove(id: string) {
+    const action = await this.actionRepository.findOne(id);
     return this.actionRepository.removeAndFlush(action);
   }
 }
