@@ -1,17 +1,22 @@
 <script setup lang="ts">
-import { fetchWrapper } from "../helper/fetch";
-import { ref } from "vue";
+import { useQuery } from "@vue/apollo-composable";
+import gql from "graphql-tag";
 
-const actions = ref([]);
-
-fetchWrapper.get("http://localhost:8080/actions").then((res) => {
-  actions.value = res;
-});
+const { result, loading, error } = useQuery(gql`
+  query getActions {
+    actions {
+      id
+      name
+    }
+  }
+`);
 </script>
 
 <template>
-  <ul v-if="actions">
-    <li v-for="action in actions">
+  <div class="loading" v-if="loading">Loading..</div>
+  <div class="error" v-if="error">{{ error.message }}</div>
+  <ul v-if="result && result.actions">
+    <li v-for="action of result.actions" :key="action.id">
       {{ action.name }}
     </li>
   </ul>

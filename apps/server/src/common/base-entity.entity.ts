@@ -5,13 +5,16 @@ import {
   SerializedPrimaryKey,
 } from '@mikro-orm/core';
 import { ObjectId } from '@mikro-orm/mongodb';
+import { Field, ObjectType } from '@nestjs/graphql';
 
 @Entity({ abstract: true })
+@ObjectType()
 export abstract class BaseEntity {
   @PrimaryKey()
   _id: ObjectId;
 
   @SerializedPrimaryKey()
+  @Field()
   id: string;
 
   @Property()
