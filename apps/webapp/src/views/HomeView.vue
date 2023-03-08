@@ -15,11 +15,13 @@ const { result, loading, error } = useQuery(gql`
 <template>
   <div class="loading" v-if="loading">Loading..</div>
   <div class="error" v-if="error">{{ error.message }}</div>
-  <ul v-if="result && result.actions">
-    <li v-for="action of result.actions" :key="action.id">
-      {{ action.name }}
-    </li>
-  </ul>
+  <table v-if="result && result.actions" class="table w-fu">
+    <tbody>
+      <tr v-for="action of result.actions" :key="action.id">
+        <td>{{ action.name }}</td>
+      </tr>
+    </tbody>
+  </table>
 </template>
 
 ,
