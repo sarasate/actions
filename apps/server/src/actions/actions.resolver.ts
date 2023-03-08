@@ -1,4 +1,4 @@
-import { Query, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { ActionsService } from './actions.service';
 import { Action } from './entities/action.entity';
 
@@ -9,5 +9,11 @@ export class ActionsResolver {
   async actions() {
     const actions = await this.actionsService.findAll();
     return actions;
+  }
+
+  @Mutation(() => Action)
+  async createAction(@Args({ name: 'name', type: () => String }) name: string) {
+    const action = await this.actionsService.create({ name });
+    return action;
   }
 }

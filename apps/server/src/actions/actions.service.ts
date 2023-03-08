@@ -12,9 +12,10 @@ export class ActionsService {
     private actionRepository: ActionRepository,
   ) {}
 
-  create(createActionDto: CreateActionDto) {
+  async create(createActionDto: CreateActionDto) {
     const action = this.actionRepository.create(createActionDto);
-    return this.actionRepository.persistAndFlush(action);
+    this.actionRepository.persistAndFlush(action);
+    return action;
   }
 
   findAll() {
