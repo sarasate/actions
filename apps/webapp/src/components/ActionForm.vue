@@ -5,6 +5,15 @@ import { ref } from "vue";
 
 const name = ref("");
 
+const CREATE_ACTION = gql`
+  query getActions {
+    actions {
+      id
+      name
+    }
+  }
+`;
+
 const { mutate: createAction } = useMutation(
   gql`
     mutation createAction($name: String!) {
@@ -18,6 +27,18 @@ const { mutate: createAction } = useMutation(
   () => ({
     variables: {
       name: name.value,
+    },
+    update: (cache, { data }) => {
+      const { actions } = cache.readQuery({
+        query: CREATE_ACTION,
+      });
+
+      cache.writeQuery({
+        query: CREATE_ACTION,
+        data: {
+          actions: [...actions, data.createAction],
+        },
+      });
     },
   })
 );

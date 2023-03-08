@@ -14,7 +14,7 @@ export class ActionsService {
 
   async create(createActionDto: CreateActionDto) {
     const action = this.actionRepository.create(createActionDto);
-    this.actionRepository.persistAndFlush(action);
+    await this.actionRepository.persistAndFlush(action);
     return action;
   }
 
