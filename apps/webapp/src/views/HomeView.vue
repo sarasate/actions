@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useQuery } from "@vue/apollo-composable";
 import gql from "graphql-tag";
+import ActionForm from "../components/ActionForm.vue";
 
 const { result, loading, error } = useQuery(gql`
   query getActions {
@@ -13,6 +14,8 @@ const { result, loading, error } = useQuery(gql`
 </script>
 
 <template>
+  <ActionForm />
+
   <div class="loading" v-if="loading">Loading..</div>
   <div class="error" v-if="error">{{ error.message }}</div>
   <table v-if="result && result.actions" class="table w-fu">
