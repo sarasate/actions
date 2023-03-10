@@ -1,5 +1,6 @@
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { Injectable } from '@nestjs/common';
+import { User } from '../users/entities/user.entity';
 import { ActionRepository } from './action.repository';
 import { CreateActionDto } from './dto/create-action.dto';
 import { UpdateActionDto } from './dto/update-action.dto';
@@ -12,8 +13,9 @@ export class ActionsService {
     private actionRepository: ActionRepository,
   ) {}
 
-  async create(createActionDto: CreateActionDto) {
+  async create(createActionDto: CreateActionDto, user: User) {
     const action = this.actionRepository.create(createActionDto);
+    action.user = user;
     await this.actionRepository.persistAndFlush(action);
     return action;
   }

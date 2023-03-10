@@ -13,6 +13,6 @@ export class Action extends BaseEntity {
   @Property({ nullable: true })
   description?: string;
 
-  // @ManyToOne()
-  // user: User;
+  @ManyToOne()
+  user: User;
 }
