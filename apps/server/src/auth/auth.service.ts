@@ -4,6 +4,7 @@ import { UsersService } from '../users/users.service';
 import * as bcrypt from 'bcrypt';
 import { CreateUserDto } from '../users/dto/create-user.dto';
 import { User } from '../users/entities/user.entity';
+import { LoginUserInput } from './dto/login-user.input';
 
 @Injectable()
 export class AuthService {
@@ -17,8 +18,8 @@ export class AuthService {
     return this.validatePassword(user, pass) ? user : null;
   }
 
-  async login(userPayload: any) {
-    const user = await this.usersService.findOneByEmail(userPayload.email);
+  async login(loginUserInput: LoginUserInput) {
+    const user = await this.usersService.findOneByEmail(loginUserInput.email);
 
     if (!user) {
       throw new UnauthorizedException();
