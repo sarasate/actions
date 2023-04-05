@@ -8,6 +8,7 @@ import { UsersModule } from './users/users.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { ConfigModule } from '@nestjs/config';
+import { OpenAIModule } from './open-ai/open-ai.module';
 import configuration from './config/configuration';
 
 const Config = ConfigModule.forRoot({
@@ -28,6 +29,7 @@ const Config = ConfigModule.forRoot({
     ActionsModule,
     AuthModule,
     UsersModule,
+    OpenAIModule,
   ],
   controllers: [AppController],
   providers: [AppService],

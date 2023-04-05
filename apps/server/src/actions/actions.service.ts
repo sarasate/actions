@@ -5,12 +5,14 @@ import { ActionRepository } from './action.repository';
 import { CreateActionDto } from './dto/create-action.dto';
 import { UpdateActionDto } from './dto/update-action.dto';
 import { Action } from './entities/action.entity';
+import { OpenAIService } from '../open-ai/open-ai.service';
 
 @Injectable()
 export class ActionsService {
   constructor(
     @InjectRepository(Action)
     private actionRepository: ActionRepository,
+    private readonly openAIService: OpenAIService,
   ) {}
 
   async create(createActionDto: CreateActionDto, user: User) {
