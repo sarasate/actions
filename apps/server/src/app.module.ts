@@ -7,9 +7,18 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { ConfigModule } from '@nestjs/config';
+import configuration from './config/configuration';
+
+const Config = ConfigModule.forRoot({
+  load: [configuration],
+  isGlobal: true,
+  envFilePath: '.env',
+});
 
 @Module({
   imports: [
+    Config,
     MikroOrmModule.forRoot(),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
