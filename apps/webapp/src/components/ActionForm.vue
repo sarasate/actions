@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { useMutation } from "@vue/apollo-composable";
 import { gql } from "graphql-tag";
 import { ref } from "vue";
