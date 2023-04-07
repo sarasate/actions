@@ -13,6 +13,15 @@ export class Action extends BaseEntity {
   @Property({ nullable: true })
   description?: string;
 
+  @Property()
+  priority: number;
+
+  @Property()
+  dueDate: Date;
+
+  @Property()
+  tags: string[];
+
   @ManyToOne()
   user: User;
 }
