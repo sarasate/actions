@@ -5,8 +5,8 @@ import { GqlAuthGuard } from '../auth/guards/gql.auth.guard';
 import { User } from '../users/entities/user.entity';
 import { ActionsService } from './actions.service';
 import { RemoveActionPayload } from './dto/remove-action.payload';
-import { Action } from './entities/action.entity';
 import { OpenAIService } from '../open-ai/open-ai.service';
+import { ActionObject } from './dto/action.object';
 
 @Resolver()
 @UseGuards(GqlAuthGuard)
@@ -15,13 +15,13 @@ export class ActionsResolver {
     private readonly actionsService: ActionsService,
     private readonly openAIService: OpenAIService,
   ) {}
-  @Query(() => [Action])
+  @Query(() => [ActionObject])
   async actions() {
     const actions = await this.actionsService.findAll();
     return actions;
   }
 
-  @Mutation(() => Action)
+  @Mutation(() => ActionObject)
   async createAction(
     @CurrentUser() user: User,
     @Args({ name: 'name', type: () => String }) name: string,

@@ -7,6 +7,9 @@ const { data, fetching, error } = useQuery({
     actions {
       id
       name
+      priority
+      dueDate
+      tags
     }
   }
 `,
@@ -22,6 +25,9 @@ const { data, fetching, error } = useQuery({
     <tbody>
       <tr v-for="action of data.actions" :key="action.id">
         <td>{{ action.name }}</td>
+        <td>{{ action.priority }}</td>
+        <td>{{ action.dueDate }}</td>
+        <td>{{ action.tags }}</td>
       </tr>
     </tbody>
   </table>
