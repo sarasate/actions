@@ -1,50 +1,26 @@
 <script setup lang="ts">
-import { useMutation } from "@urql/vue";
-import { gql } from "graphql-tag";
+import { useMutation, gql } from "@urql/vue";
 import { ref } from "vue";
 
 const name = ref("");
 
-const CREATE_ACTION = gql`
-  query getActions {
-    actions {
+const { executeMutation: createAction } = useMutation(gql`
+  mutation ($name: String!) {
+    createAction(name: $name) {
       id
       name
     }
   }
-`;
+`);
 
-// const { mutate: createAction } = useMutation(
-//   gql`
-//     mutation createAction($name: String!) {
-//       createAction(name: $name) {
-//         id
-//         name
-//       }
-//     }
-//   `,
-//   // Need a function here to get the latest value of `name`
-//   () => ({
-//     variables: {
-//       name: name.value,
-//     },
-//     update: (cache, { data }) => {
-//       const { actions } = cache.readQuery({
-//         query: CREATE_ACTION,
-//       });
-
-//       cache.writeQuery({
-//         query: CREATE_ACTION,
-//         data: {
-//           actions: [...actions, data.createAction],
-//         },
-//       });
-//     },
-//   })
-// );
+const create = () => {
+  return createAction({ name: name.value }).then((result) => {
+    console.log(result);
+  });
+};
 </script>
 
 <template>
   <input v-model="name" class="input" />
-  <button @click="createAction()" class="btn">Submit</button>
+  <button @click="create()" class="btn">Submit</button>
 </template>
