@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useMutation } from "@vue/apollo-composable";
+import { useMutation } from "@urql/vue";
 import { gql } from "graphql-tag";
 import { ref } from "vue";
 
@@ -14,34 +14,34 @@ const CREATE_ACTION = gql`
   }
 `;
 
-const { mutate: createAction } = useMutation(
-  gql`
-    mutation createAction($name: String!) {
-      createAction(name: $name) {
-        id
-        name
-      }
-    }
-  `,
-  // Need a function here to get the latest value of `name`
-  () => ({
-    variables: {
-      name: name.value,
-    },
-    update: (cache, { data }) => {
-      const { actions } = cache.readQuery({
-        query: CREATE_ACTION,
-      });
+// const { mutate: createAction } = useMutation(
+//   gql`
+//     mutation createAction($name: String!) {
+//       createAction(name: $name) {
+//         id
+//         name
+//       }
+//     }
+//   `,
+//   // Need a function here to get the latest value of `name`
+//   () => ({
+//     variables: {
+//       name: name.value,
+//     },
+//     update: (cache, { data }) => {
+//       const { actions } = cache.readQuery({
+//         query: CREATE_ACTION,
+//       });
 
-      cache.writeQuery({
-        query: CREATE_ACTION,
-        data: {
-          actions: [...actions, data.createAction],
-        },
-      });
-    },
-  })
-);
+//       cache.writeQuery({
+//         query: CREATE_ACTION,
+//         data: {
+//           actions: [...actions, data.createAction],
+//         },
+//       });
+//     },
+//   })
+// );
 </script>
 
 <template>

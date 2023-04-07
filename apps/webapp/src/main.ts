@@ -1,11 +1,7 @@
 import { createApp } from "vue";
 import { createPinia } from "pinia";
-import {
-  ApolloClient,
-  createHttpLink,
-  InMemoryCache,
-} from "@apollo/client/core";
-import { DefaultApolloClient } from "@vue/apollo-composable";
+import urql, { cacheExchange, dedupExchange, fetchExchange } from "@urql/vue";
+import { authExchange } from "@urql/exchange-auth";
 
 import App from "./App.vue";
 import router from "./router";
@@ -14,23 +10,29 @@ import "./assets/main.css";
 
 const app = createApp(App);
 
-// HTTP connection to the API
-const httpLink = createHttpLink({
-  // You should use an absolute URL here
-  uri: "http://localhost:8080/graphql",
-});
-
-// Cache implementation
-const cache = new InMemoryCache();
-
-// Create the apollo client
-const apolloClient = new ApolloClient({
-  link: httpLink,
-  cache,
-});
-
 app.use(createPinia());
-app.provide(DefaultApolloClient, apolloClient);
+app.use(urql, {
+  url: "http://localhost:8080/graphql",
+  exchanges: [
+    dedupExchange,
+    cacheExchange,
+    authExchange(async (utils) => {
+      const token = localStorage.getItem("accessToken");
+      const refreshToken = localStorage.getItem("refreshToken");
+
+      console.log("%cmain.ts line:24 token", "color: #007acc;", token);
+      return {
+        addAuthToOperation(operation) {
+          if (!token) return operation;
+          return utils.appendHeaders(operation, {
+            Authorization: `Bearer ${token}`,
+          });
+        },
+      };
+    }),
+    fetchExchange,
+  ],
+});
 app.use(router);
 
 app.mount("#app");
