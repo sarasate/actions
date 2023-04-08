@@ -18,7 +18,7 @@ export const useAuthStore = defineStore("auth", () => {
     });
     user.value = data.user;
     localStorage.setItem("user", JSON.stringify(data.user));
-    localStorage.setItem("accessToken", JSON.stringify(data.accessToken));
+    localStorage.setItem("accessToken", data.accessToken);
     // router.push(returnUrl || "/");
   };
 
