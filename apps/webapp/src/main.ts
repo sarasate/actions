@@ -1,6 +1,7 @@
 import { createApp } from "vue";
 import { createPinia } from "pinia";
 import urql, { cacheExchange, dedupExchange, fetchExchange } from "@urql/vue";
+import { devtoolsExchange } from "@urql/devtools";
 import { authExchange } from "@urql/exchange-auth";
 
 import App from "./App.vue";
@@ -14,6 +15,7 @@ app.use(createPinia());
 app.use(urql, {
   url: "http://localhost:8080/graphql",
   exchanges: [
+    devtoolsExchange,
     dedupExchange,
     cacheExchange,
     authExchange(async (utils) => {

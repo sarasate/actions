@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useQuery } from "@urql/vue";
 import ActionForm from "../components/ActionForm.vue";
+import Date from "../components/Date.vue";
 
 const { data, fetching, error } = useQuery({
   query: `  query getActions {
@@ -26,7 +27,7 @@ const { data, fetching, error } = useQuery({
       <tr v-for="action of data.actions" :key="action.id">
         <td>{{ action.name }}</td>
         <td>{{ action.priority }}</td>
-        <td>{{ action.dueDate }}</td>
+        <td><Date :date="action.dueDate" /></td>
         <td>{{ action.tags }}</td>
       </tr>
     </tbody>
