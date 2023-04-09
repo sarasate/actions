@@ -23,7 +23,9 @@ export class ActionsService {
   }
 
   findAll() {
-    return this.actionRepository.findAll();
+    return this.actionRepository.findAll({
+      orderBy: { priority: 'DESC', dueDate: 'DESC' },
+    });
   }
 
   findOne(id: string) {
