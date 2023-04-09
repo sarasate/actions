@@ -1,15 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Configuration, OpenAIApi } from 'openai';
+import { prompt } from './open-ai.prompt';
 
 @Injectable()
 export class OpenAIService {
   constructor(private readonly configService: ConfigService) {}
 
   async generateAction(text: string): Promise<any> {
-    const prompt = `create a task with due date (in the future from today), priority and output a JSON string for: ${text}. The result should be in this form: {"name":"string", "dueDate": "date", "priority": number, |tags": ["string"]}`;
-
-    const result = await this.generateText(prompt);
+    const result = await this.generateText(prompt(text));
 
     return JSON.parse(result.replace(/\n/g, ''));
   }
