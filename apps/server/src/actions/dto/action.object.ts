@@ -11,12 +11,12 @@ export class ActionObject {
   @Field({ nullable: true })
   description: string;
 
-  @Field()
+  @Field({ nullable: true })
   priority: number;
 
-  @Field()
+  @Field({ nullable: true })
   dueDate: Date;
 
-  @Field(() => [String])
+  @Field(() => [String], { nullable: true })
   tags: string[];
 }

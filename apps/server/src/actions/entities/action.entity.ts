@@ -10,14 +10,14 @@ export class Action extends BaseEntity {
   @Property({ nullable: true })
   description?: string;
 
-  @Property()
-  priority: number;
+  @Property({ nullable: true })
+  priority?: number;
 
-  @Property()
-  dueDate: Date;
+  @Property({ nullable: true })
+  dueDate?: Date;
 
-  @Property()
-  tags: string[];
+  @Property({ nullable: true })
+  tags?: string[];
 
   @ManyToOne()
   user: User;

@@ -21,9 +21,9 @@ const { executeMutation: deleteAction, fetching } = useMutation(
     // variables() {
     //   return { id: props.actionId };
     // },
-    update(cache) {
-      cache.invalidate();
-    },
+    // update(cache) {
+    //   cache.invalidate();
+    // },
   }
 );
 

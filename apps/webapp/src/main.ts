@@ -1,6 +1,7 @@
 import { createApp } from "vue";
 import { createPinia } from "pinia";
-import urql, { cacheExchange, dedupExchange, fetchExchange } from "@urql/vue";
+import urql, { dedupExchange, fetchExchange, gql } from "@urql/vue";
+import { cacheExchange } from "@urql/exchange-graphcache";
 import { devtoolsExchange } from "@urql/devtools";
 import { authExchange } from "@urql/exchange-auth";
 
@@ -8,6 +9,7 @@ import App from "./App.vue";
 import router from "./router";
 
 import "./assets/main.css";
+import { cacheConfig } from "./graphql/cache.exchange";
 
 const app = createApp(App);
 
@@ -17,7 +19,7 @@ app.use(urql, {
   exchanges: [
     devtoolsExchange,
     dedupExchange,
-    cacheExchange,
+    cacheExchange(cacheConfig),
     authExchange(async (utils) => {
       const token = localStorage.getItem("accessToken");
       const refreshToken = localStorage.getItem("refreshToken");
