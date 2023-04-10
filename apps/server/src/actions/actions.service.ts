@@ -6,6 +6,7 @@ import { CreateActionDto } from './dto/create-action.dto';
 import { UpdateActionDto } from './dto/update-action.dto';
 import { Action } from './entities/action.entity';
 import { OpenAIService } from '../open-ai/open-ai.service';
+import { wrap } from '@mikro-orm/core';
 
 @Injectable()
 export class ActionsService {
@@ -33,8 +34,11 @@ export class ActionsService {
   }
 
   // TODO implement
-  update(id: string, updateActionDto: UpdateActionDto) {
-    return `This action updates a #${id} action`;
+  async update(id: string, updateActionDto: UpdateActionDto) {
+    const action = await this.actionRepository.findOne(id);
+    wrap(action).assign(updateActionDto);
+    this.actionRepository.persist(action).flush();
+    return action;
   }
 
   async remove(id: string) {

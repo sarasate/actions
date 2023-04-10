@@ -7,6 +7,7 @@ import { ActionsService } from './actions.service';
 import { RemoveActionPayload } from './dto/remove-action.payload';
 import { OpenAIService } from '../open-ai/open-ai.service';
 import { ActionObject } from './dto/action.object';
+import { UpdateActionInput } from './dto/update-action.input';
 
 @Resolver()
 @UseGuards(GqlAuthGuard)
@@ -28,6 +29,15 @@ export class ActionsResolver {
   ) {
     const actionData = await this.openAIService.generateAction(name);
     const action = await this.actionsService.create(actionData, user);
+    return action;
+  }
+
+  @Mutation(() => ActionObject)
+  async updateAction(
+    @Args('updateActionInput') updateActionInput: UpdateActionInput,
+  ) {
+    const { id, ...updateActionDto } = updateActionInput;
+    const action = await this.actionsService.update(id, updateActionDto);
     return action;
   }
 
