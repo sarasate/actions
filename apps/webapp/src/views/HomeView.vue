@@ -11,6 +11,7 @@ const { data, fetching, error } = useQuery({
       name
       priority
       dueDate
+      duration
       tags
     }
   }
@@ -29,6 +30,7 @@ const { data, fetching, error } = useQuery({
         <td>{{ action.name }}</td>
         <td>{{ action.priority }}</td>
         <td><Date :date="action.dueDate" /></td>
+        <td>{{ action.duration || "-" }} min</td>
         <td>{{ action.tags }}</td>
         <td><Delete :actionId="action.id" /></td>
       </tr>

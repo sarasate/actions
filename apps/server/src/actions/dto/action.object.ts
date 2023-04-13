@@ -18,6 +18,9 @@ export class ActionObject {
   @Field({ nullable: true })
   dueDate: Date;
 
+  @Field({ nullable: true })
+  duration: number;
+
   @Field()
   status: ActionStatus;
 

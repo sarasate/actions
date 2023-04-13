@@ -24,6 +24,9 @@ export class Action extends BaseEntity {
   dueDate?: Date;
 
   @Property({ nullable: true })
+  duration?: number;
+
+  @Property({ nullable: true })
   tags?: string[];
 
   @Enum({ items: () => ActionStatus, default: ActionStatus.OPEN })
