@@ -37,5 +37,3 @@ const { data, fetching, error } = useQuery({
     </tbody>
   </table>
 </template>
-
-,
