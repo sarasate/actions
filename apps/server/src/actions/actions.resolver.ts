@@ -24,11 +24,11 @@ export class ActionsResolver {
 
   @Mutation(() => ActionObject)
   async createAction(
-    @CurrentUser() user: User,
+    @CurrentUser() user: any,
     @Args({ name: 'name', type: () => String }) name: string,
   ) {
     const actionData = await this.openAIService.generateAction(name);
-    const action = await this.actionsService.create(actionData, user);
+    const action = await this.actionsService.create(actionData, user.sub);
     return action;
   }
 

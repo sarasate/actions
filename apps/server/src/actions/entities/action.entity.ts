@@ -1,4 +1,4 @@
-import { Entity, Enum, ManyToOne, Property } from '@mikro-orm/core';
+import { Entity, Enum, ManyToOne, Property, Unique } from '@mikro-orm/core';
 import { BaseEntity } from '../../common/base-entity.entity';
 import { User } from '../../users/entities/user.entity';
 
@@ -32,6 +32,10 @@ export class Action extends BaseEntity {
   @Enum({ items: () => ActionStatus, default: ActionStatus.OPEN })
   status = ActionStatus.OPEN;
 
-  @ManyToOne()
+  @Property()
+  @Unique()
+  userId: string;
+
+  @ManyToOne({ nullable: true })
   user: User;
 }

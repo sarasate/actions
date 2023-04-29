@@ -10,9 +10,19 @@ import router from "./router";
 
 import "./assets/main.css";
 import { cacheConfig } from "./graphql/cache.exchange";
+import { createAuth0 } from "@auth0/auth0-vue";
 
+const auth0Client = createAuth0({
+  domain: "sarasate.eu.auth0.com",
+  clientId: "JgYwmLh41cgp5nX49sArjdOENt35edbx",
+  authorizationParams: {
+    redirect_uri: window.location.origin,
+    audience: "actions",
+  },
+});
 const app = createApp(App);
 
+app.use(auth0Client);
 app.use(createPinia());
 app.use(urql, {
   url: "http://localhost:8080/graphql",
@@ -21,8 +31,7 @@ app.use(urql, {
     dedupExchange,
     cacheExchange(cacheConfig),
     authExchange(async (utils) => {
-      const token = localStorage.getItem("accessToken");
-      const refreshToken = localStorage.getItem("refreshToken");
+      const token = await auth0Client.getAccessTokenSilently();
 
       console.log("%cmain.ts line:24 token", "color: #007acc;", token);
       return {
