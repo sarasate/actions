@@ -15,18 +15,18 @@ export class OpenAIService {
 
   async generateText(text: string, options?) {
     const requestOptions = {
-      model: 'text-davinci-003',
-      prompt: text,
-      max_tokens: 2048,
-      // messages: [
-      //   {
-      //     role: 'system',
-      //     content: text,
-      //   },
-      // ],
-      // max_tokens: 500,
-      // n: 1,
-      // stop: null,
+      model: 'gpt-4',
+      // prompt: text,
+      // max_tokens: 2048,
+      messages: [
+        {
+          role: 'system',
+          content: text,
+        },
+      ],
+      max_tokens: 500,
+      n: 1,
+      stop: null,
       temperature: 0.7,
       ...options,
     };
@@ -37,14 +37,9 @@ export class OpenAIService {
 
     const openai = new OpenAIApi(configuration);
     try {
-      const result = await openai.createCompletion(requestOptions);
-      return result.data.choices[0].text;
+      const result = await openai.createChatCompletion(requestOptions);
+      return result.data.choices[0].message.content;
     } catch (error) {
-      console.log(
-        '%copenai.service.ts line:38 error',
-        'color: #007acc;',
-        error,
-      );
       throw new Error(`Error generating text: ${error.message}`);
     }
   }
