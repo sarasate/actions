@@ -16,8 +16,6 @@ export class OpenAIService {
   async generateText(text: string, options?) {
     const requestOptions = {
       model: 'gpt-4',
-      // prompt: text,
-      // max_tokens: 2048,
       messages: [
         {
           role: 'system',
