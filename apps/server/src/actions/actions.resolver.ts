@@ -28,7 +28,7 @@ export class ActionsResolver {
     @Args({ name: 'name', type: () => String }) name: string,
   ) {
     const actionData = await this.openAIService.generateAction(name);
-    const action = await this.actionsService.create(actionData, user.sub);
+    const action = await this.actionsService.create(actionData, name, user.sub);
     return action;
   }
 

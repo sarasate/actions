@@ -16,9 +16,14 @@ export class ActionsService {
     private readonly openAIService: OpenAIService,
   ) {}
 
-  async create(createActionDto: CreateActionDto, userId: string) {
+  async create(
+    createActionDto: CreateActionDto,
+    description: string,
+    userId: string,
+  ) {
     const action = this.actionRepository.create(createActionDto);
     action.userId = userId;
+    action.description = description;
     await this.actionRepository.persistAndFlush(action);
     return action;
   }
