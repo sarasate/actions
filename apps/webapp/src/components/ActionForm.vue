@@ -16,6 +16,7 @@ const { executeMutation: createAction } = useMutation(gql`
 const create = () => {
   return createAction({ name: name.value }).then((result) => {
     console.log(result);
+    name.value = "";
   });
 };
 </script>
