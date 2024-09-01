@@ -32,6 +32,7 @@ model Action {
   priority     Int
   labels       String[]
   dueDate      DateTime?
+  effort       Int?
   assignedToId String?      @map("assigned_to_id")
   assignedTo   User?        @relation(fields: [assignedToId], references: [id])
   createdById  String       @map("created_by_id")

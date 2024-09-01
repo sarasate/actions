@@ -97,6 +97,8 @@ export default function Index() {
             <div key={action.id}>
               <div className="flex items-center gap-4">
                 <div className="flex-1">{action.title}</div>
+                <div>Priority: {action.priority}</div>
+                <div>Effort: {action.effort}</div>
                 <div>
                   <fetcher.Form method="post">
                     <input type="hidden" name="actionId" value={action.id} />
