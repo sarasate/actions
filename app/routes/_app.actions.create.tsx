@@ -28,7 +28,15 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   result.then(async (msg) => {
     const jsonResult = JSON.parse(msg?.content[0]?.text);
 
-    if (!jsonResult) {
+    try {
+      if (!jsonResult) {
+        return json(
+          { error: "Invalid response from Anthropic" },
+          { status: 500 }
+        );
+      }
+    } catch (error) {
+      console.error(error);
       return json(
         { error: "Invalid response from Anthropic" },
         { status: 500 }
